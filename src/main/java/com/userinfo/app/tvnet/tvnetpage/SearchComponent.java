@@ -36,7 +36,7 @@ public class SearchComponent extends Base {
                 writer.write(element.getText() + "\n===============================\n");
             }
         } catch (Exception e) {
-            System.err.println("Writer issue: " + e);
+            System.out.println("The writer did not open: " + e);
         } finally {
             isWriterClosed = true;
         }
