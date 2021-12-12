@@ -29,17 +29,18 @@ public class SearchComponent extends Base {
     public void writeComments() throws IOException {
 
         this.wait.until((d) -> this.comments.listIterator().next().isDisplayed());
-
-        Writer writer = new BufferedWriter(new OutputStreamWriter(
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("Selenium Test " + dateFormat.format(date) + ".txt"),
-                StandardCharsets.UTF_8));
-
-        for (WebElement element : comments) {
-            writer.write(element.getText() + "\n===============================\n");
+                StandardCharsets.UTF_8))) {
+            for (WebElement element : comments) {
+                writer.write(element.getText() + "\n===============================\n");
+            }
+        } catch (Exception e) {
+            System.err.println("Writer issue: " + e);
+        } finally {
+            isWriterClosed = true;
         }
 
-        writer.close();
-        isWriterClosed = true;
     }
 
     @Override
